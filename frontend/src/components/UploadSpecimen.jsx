@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import BottomNavBar from './BottomNavBar';
 import './UploadSpecimen.css';
 
@@ -13,6 +12,18 @@ const UploadSpecimen = () => {
   const [gender, setGender] = useState('');
   const [specimenType, setSpecimenType] = useState('');
   const [uploadStatus, setUploadStatus] = useState('');
+
+  // Additional patient details for prediction
+  const [sn, setSn] = useState('');
+  const [year, setYear] = useState('');
+  const [age, setAge] = useState('');
+  const [tumorSize, setTumorSize] = useState('');
+  const [invNodes, setInvNodes] = useState('');
+  const [breastCancerCell, setBreastCancerCell] = useState('');
+  const [menopause, setMenopause] = useState('');
+  const [metastasis, setMetastasis] = useState('');
+  const [breastQuadrant, setBreastQuadrant] = useState('');
+  const [history, setHistory] = useState('');
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
@@ -45,6 +56,18 @@ const UploadSpecimen = () => {
       formData.append("gender", gender);
       formData.append("specimenType", specimenType);
   
+      // Append additional patient details for prediction
+      formData.append("sn", sn);
+      formData.append("year", year);
+      formData.append("age", age);
+      formData.append("tumorSize", tumorSize);
+      formData.append("invNodes", invNodes);
+      formData.append("breastCancerCell", breastCancerCell);
+      formData.append("menopause", menopause);
+      formData.append("metastasis", metastasis);
+      formData.append("breastQuadrant", breastQuadrant);
+      formData.append("history", history);
+  
       const response = await fetch("http://127.0.0.1:8000/images/upload", {
         method: "POST",
         headers: {
@@ -61,7 +84,12 @@ const UploadSpecimen = () => {
       const data = await response.json();
       setUploadStatus("Upload successful!");
   
-      navigate("/analysis", { state: { imageData: data, patientInfo: { patientName, patientID, gender, specimenType } } });
+      // Navigate to the analysis page with the response data
+      navigate("/analysis", {
+        state: {
+          imageData: data,
+        },
+      });
     } catch (error) {
       setUploadStatus("Upload failed. Please try again.");
       console.error("Upload error:", error);
@@ -140,6 +168,78 @@ const UploadSpecimen = () => {
             <option value="tissue">Tissue</option>
             <option value="urine">Urine</option>
           </select>
+
+          {/* Additional patient details for prediction */}
+          <input
+            type="number"
+            placeholder="SN"
+            value={sn}
+            onChange={(e) => setSn(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Year"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Age"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Tumor Size"
+            value={tumorSize}
+            onChange={(e) => setTumorSize(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Inv Nodes"
+            value={invNodes}
+            onChange={(e) => setInvNodes(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Breast Cancer Cell"
+            value={breastCancerCell}
+            onChange={(e) => setBreastCancerCell(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Menopause"
+            value={menopause}
+            onChange={(e) => setMenopause(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Metastasis"
+            value={metastasis}
+            onChange={(e) => setMetastasis(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Breast Quadrant"
+            value={breastQuadrant}
+            onChange={(e) => setBreastQuadrant(e.target.value)}
+            required
+          />
+          <input
+            type="number"
+            placeholder="History"
+            value={history}
+            onChange={(e) => setHistory(e.target.value)}
+            required
+          />
         </div>
       </div>
       <div className="action-buttons">

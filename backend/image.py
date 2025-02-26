@@ -6,9 +6,13 @@ import json
 import numpy as np
 from PIL import Image
 from mainmodel1 import predict_subtype_with_heatmap
+from pydantic import BaseModel
+from model2 import predict_stage, predict_treatment
 
 router = APIRouter()
 
+
+    
 # Configure directories
 UPLOAD_DIR = "uploads"
 REPORTS_FILE = "reports.json"
@@ -22,13 +26,24 @@ if not os.path.exists(REPORTS_FILE):
         json.dump({"reports": []}, f)  # Initialize empty reports list
 
 
+    
 @router.post("/upload")
 async def upload_and_predict(
     file: UploadFile = File(...),
     patientName: str = Form(...),
     patientID: str = Form(...),
     gender: str = Form(...),
-    specimenType: str = Form(...)
+    specimenType: str = Form(...),
+    sn: str = Form(...),
+    year: int = Form(...),
+    age: int = Form(...),
+    tumorSize: float = Form(...),
+    invNodes: float = Form(...),
+    breastCancerCell: int = Form(...),
+    menopause: int = Form(...),
+    metastasis: int = Form(...),
+    breastQuadrant: int = Form(...),
+    history: int = Form(...)
 ):
     try:
         # Save the uploaded file
@@ -40,6 +55,12 @@ async def upload_and_predict(
 
         # Get prediction and heatmap
         predicted_subtype, confidence, heatmap = predict_subtype_with_heatmap(file_path)
+
+        # Predict cancer stage
+        predicted_stage = predict_stage(sn, year, age, tumorSize, invNodes, breastCancerCell, menopause, metastasis, breastQuadrant, history)
+
+        # Predict treatment
+        treatment = predict_treatment(predicted_stage)
 
         # Encode original image
         with open(file_path, "rb") as image_file:
@@ -59,6 +80,18 @@ async def upload_and_predict(
             "patientID": patientID,
             "gender": gender,
             "specimenType": specimenType,
+            "sn": sn,
+            "year": year,
+            "age": age,
+            "tumor_size": tumorSize,
+            "inv_nodes": invNodes,
+            "breast_cancer_cell": breastCancerCell,
+            "menopause": menopause,
+            "metastasis": metastasis,
+            "breast_quadrant": breastQuadrant,
+            "history": history,
+            "predicted_stage": predicted_stage,
+            "recommended_treatment": treatment,
             "predicted_subtype": predicted_subtype,
             "confidence": f"{confidence:.2f}%",
             "heatmap": f"data:image/png;base64,{heatmap_str}",

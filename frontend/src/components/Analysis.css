@@ -197,7 +197,14 @@ body {
   box-shadow: var(--hover-shadow);
 }
 
+.text1{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: aliceblue;
+}
 .confidence {
+  color: aliceblue;
   border-left: 4px solid #7f7fd5;
 }
 

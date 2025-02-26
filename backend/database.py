@@ -1,8 +1,13 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from fastapi import Depends
+from urllib.parse import quote_plus
 
 # MongoDB connection settings
-MONGO_URI = "mongodb://127.0.0.1:27017/"
+username = quote_plus("admin1")
+password = quote_plus("admin@123$#")
+cluster_url = "ezhealth.phjf1.mongodb.net"
+
+MONGO_URI = f"mongodb+srv://{username}:{password}@{cluster_url}/?retryWrites=true&w=majority&appName=Ezhealth"
 
 DB_NAME = "EzHealth"
 

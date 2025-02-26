@@ -38,8 +38,20 @@ const Reports = () => {
     doc.text(`Age: ${report.patientID}`, 10, 30);
     doc.text(`Gender: ${report.gender}`, 10, 40);
     doc.text(`SpecimenType:' ${report.specimenType}`, 10, 50);
-    doc.text(`Predicted Subtype: ${report.predicted_subtype}`, 10, 60);
-    doc.text(`Confidence: ${report.confidence}`, 10, 70);
+    doc.text(`Patient Sn:' ${report.sn}`, 10, 60);
+    doc.text(`Year:' ${report.year}`, 10, 70);
+    doc.text(`Patient Age:' ${report.age}`, 10, 80);
+    doc.text(`Tumor Size:' ${report.tumorSize}`, 10, 90);
+    doc.text(`Inv Nodes:' ${report.invNodes}`, 10, 100);
+    doc.text(`Breast Cancer Cell:' ${report.breastCancerCell}`, 10, 110);
+    doc.text(`Menopause:' ${report.menopause ? 'YES' : 'NO'}`, 10, 120);
+    doc.text(`Metastasis:' ${report.metastasis ? 'YES' : 'NO'}`, 10, 130);
+    doc.text(`Breast Quadrant:' ${report.breastQuadrant ? 'YES' : 'NO'}`, 10, 140);
+    doc.text(`History:' ${report.history ? 'YES' : 'NO'}`, 10, 150);
+    doc.text(`Predicted Subtype: ${report.predicted_subtype}`, 10, 160);
+    doc.text(`Confidence: ${report.confidence}`, 10, 170);
+    doc.text(`Predicted stage: ${report.predicted_stage}`, 10, 180);
+    doc.text(`Recommended Treatment: ${report.recommended_treatment}`, 10, 190);
     doc.save(`${report.filename}.pdf`);
   };
 
@@ -57,8 +69,20 @@ const Reports = () => {
               <p><strong>Patient ID:</strong> {report.patientID}</p>
               <p><strong>Gender:</strong> {report.gender}</p>
               <p><strong>Speicmen Type:</strong>{report.specimenType}</p>
-              <p><strong>{['adenosis', 'fibroadenoma', 'phyllodes_tumor', 'tubular_adenoma'].includes(report.predicted_subtype) ? 'This is not cancer' : 'This is cancer'}</strong></p>
+              <p><strong>Patient Sn: </strong>{report.sn}</p>
+              <p><strong>Year: </strong>{report.year}</p>
+              <p><strong>Patient Age: </strong>{report.age}</p>
+              <p><strong>Tumor size: </strong>{report.tumor_size}</p>
+              <p><strong>Inv Nodes: </strong>{report.inv_nodes}</p>
+              <p><strong>Breast Cancer Cell: </strong>{report.breast_cancer_cell}</p>
+              <p><strong>Menopause: </strong>{report.menopause ? 'YES' : 'NO'}</p>
+              <p><strong>Metastasis: </strong>{report.metastasis ? 'YES' : 'NO'}</p>
+              <p><strong>Breast Quadrant: </strong>{report.breastQuadrant ? 'YES' : 'NO'}</p>
+              <p><strong>History: </strong>{report.history ? 'YES' : 'NO'}</p>
+              <p><strong> Cancerous: </strong>{['adenosis', 'fibroadenoma', 'phyllodes_tumor', 'tubular_adenoma'].includes(report.predicted_subtype) ? 'NO' : 'YES'}</p>
               <p><strong>Predicted Subtype:</strong> {report.predicted_subtype}</p>
+              <p><strong>Predicted Stage:</strong> {report.predicted_stage}</p>
+              <p><strong>Recommended Treatment:</strong> {report.recommended_treatment}</p>
               <p><strong>Confidence:</strong> {report.confidence}</p>
               <div className="images-container">
                 <div className="image-section">
