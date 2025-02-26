@@ -110,10 +110,6 @@ def predict_subtype_with_heatmap(image_path):
     heatmap = heatmap + np.float32(image.resize((224, 224))) / 255
     heatmap = heatmap / np.max(heatmap)
 
-    plt.imshow(heatmap)
-    plt.title(f"Predicted Subtype: {predicted_subtype}\nConfidence: {probabilities[predicted_class.item()]:.2f}%")
-    plt.axis('off')
-    plt.show()
 
     return predicted_subtype, probabilities[predicted_class.item()],heatmap
 

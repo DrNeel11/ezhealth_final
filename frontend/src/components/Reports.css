@@ -1,12 +1,19 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0a0a0a;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
 .reports-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  animation: fadeIn 0.5s ease-in-out;
- }
- 
- 
- h2 {
+}
+
+h2 {
   text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
@@ -16,120 +23,117 @@
   -webkit-text-fill-color: transparent; 
   margin-bottom: 1.5rem;
   letter-spacing: -0.05em;
- }
- 
- 
- .reports-list {
-  display: flex;
-  flex-direction: column;
+}
+
+.no-reports {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+/* Report Cards */
+.reports-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
- }
- 
- 
- .report-card {
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s ease-in-out;
- }
- 
- 
- .report-card:hover {
-  transform: translateY(-5px);
- }
- 
- 
- h3 {
-  font-size: 18px;
-  color: #222;
+}
+
+.report-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.report-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.report-card.expanded {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #fff;
   margin-bottom: 10px;
- }
- 
- 
- p {
-  font-size: 14px;
-  color: #555;
- }
- 
- 
- .images-container {
+}
+
+p {
+  font-size: 1rem;
+  color: #ddd;
+  margin: 5px 0;
+}
+
+.report-details {
+  margin-top: 15px;
+}
+
+/* Images */
+.images-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-top: 10px;
-  width: 100%;
-  max-width: 400px;
- }
- 
- 
- .image-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: #fff;
+  margin-top: 20px;
+}
+
+.image-section {
+  background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   padding: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
- }
- 
- 
- .image-label {
-  font-size: 14px;
-  color: #777;
-  margin-bottom: 5px;
- }
- 
- 
- .report-image {
+  text-align: center;
+}
+
+.image-label {
+  font-size: 1rem;
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+.report-image {
   width: 100%;
-  max-width: 400px;
   border-radius: 8px;
- }
- 
- 
- .report-actions {
+}
+
+/* Buttons */
+.report-actions {
   display: flex;
   justify-content: center;
   gap: 15px;
-  margin-top: 15px;
- }
- 
- 
- .delete-btn, .download-btn {
-  padding: 10px 16px;
+  margin-top: 20px;
+}
+
+.delete-btn,
+.download-btn {
+  padding: 10px 20px;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: 25px;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
- }
- 
- 
- .delete-btn {
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.delete-btn {
   background: #ff4d4d;
   color: white;
- }
- 
- 
- .download-btn {
+}
+
+.download-btn {
   background: #007bff;
   color: white;
- }
- 
- 
- .delete-btn:hover {
+}
+
+.delete-btn:hover {
   background: #cc0000;
-  transform: scale(1.05);
- }
- 
- 
- .download-btn:hover {
+  transform: scale(1.1);
+}
+
+.download-btn:hover {
   background: #0056b3;
-  transform: scale(1.05);
- }
- 
+  transform: scale(1.1);
+}

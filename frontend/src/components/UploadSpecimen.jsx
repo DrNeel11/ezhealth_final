@@ -8,13 +8,11 @@ const UploadSpecimen = () => {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [patientName, setPatientName] = useState('');
-  const [patientID, setPatientID] = useState('');
+  const [sn, setSn] = useState('');
   const [gender, setGender] = useState('');
-  const [specimenType, setSpecimenType] = useState('');
   const [uploadStatus, setUploadStatus] = useState('');
 
   // Additional patient details for prediction
-  const [sn, setSn] = useState('');
   const [year, setYear] = useState('');
   const [age, setAge] = useState('');
   const [tumorSize, setTumorSize] = useState('');
@@ -43,21 +41,21 @@ const UploadSpecimen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    if (!selectedFile || !patientName || !patientID || !gender || !specimenType) {
+    if (!selectedFile || !patientName || !sn || !gender ) {
       alert("Please fill in all patient details and select a file before submitting.");
       return;
     }
-  
+    if(age<0 || year<0 || tumorSize<0 || invNodes<0 || breastCancerCell<0 || menopause<0 || metastasis<0 || breastQuadrant<0 || history<0){
+      alert("Negative values are not allowed");
+      return;
+    }
     try {
       const formData = new FormData();
       formData.append("file", selectedFile);
       formData.append("patientName", patientName);
-      formData.append("patientID", patientID);
-      formData.append("gender", gender);
-      formData.append("specimenType", specimenType);
-  
-      // Append additional patient details for prediction
       formData.append("sn", sn);
+      formData.append("gender", gender);
+      // Append additional patient details for prediction
       formData.append("year", year);
       formData.append("age", age);
       formData.append("tumorSize", tumorSize);
@@ -126,10 +124,10 @@ const UploadSpecimen = () => {
             required
           />
           <input
-            type="text"
-            placeholder="Enter patient ID"
-            value={patientID}
-            onChange={(e) => setPatientID(e.target.value)}
+            type="number"
+            placeholder="SN"
+            value={sn}
+            onChange={(e) => setSn(e.target.value)}
             required
           />
           <div className="gender-selection">
@@ -158,25 +156,8 @@ const UploadSpecimen = () => {
               /> Other
             </label>
           </div>
-          <select
-            value={specimenType}
-            onChange={(e) => setSpecimenType(e.target.value)}
-            required
-          >
-            <option value="">Select specimen type</option>
-            <option value="blood">Blood</option>
-            <option value="tissue">Tissue</option>
-            <option value="urine">Urine</option>
-          </select>
 
           {/* Additional patient details for prediction */}
-          <input
-            type="number"
-            placeholder="SN"
-            value={sn}
-            onChange={(e) => setSn(e.target.value)}
-            required
-          />
           <input
             type="number"
             placeholder="Year"

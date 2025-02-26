@@ -31,10 +31,8 @@ if not os.path.exists(REPORTS_FILE):
 async def upload_and_predict(
     file: UploadFile = File(...),
     patientName: str = Form(...),
-    patientID: str = Form(...),
-    gender: str = Form(...),
-    specimenType: str = Form(...),
     sn: str = Form(...),
+    gender: str = Form(...),
     year: int = Form(...),
     age: int = Form(...),
     tumorSize: float = Form(...),
@@ -77,10 +75,8 @@ async def upload_and_predict(
         report_data = {
             "filename": file.filename,
             "patientName": patientName,
-            "patientID": patientID,
-            "gender": gender,
-            "specimenType": specimenType,
             "sn": sn,
+            "gender": gender,
             "year": year,
             "age": age,
             "tumor_size": tumorSize,
