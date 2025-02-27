@@ -20,45 +20,48 @@ const UpdateProfile = () => {
         e.preventDefault();
         setError("");
         setSuccess("");
-
+    
         if (!formData.currentPassword.trim()) {
             setError("Current password is required.");
             return;
         }
-
+    
         try {
             const token = localStorage.getItem("token");
+            console.log("Token being sent:", token); // Debugging
+    
             if (!token) {
                 navigate("/signin");
                 return;
             }
-
-            const response = await fetch("http://127.0.0.1:8000/update-profile", {
+    
+            const response = await fetch("http://127.0.0.1:8000/auth/update-profile", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}` // ✅ Fixed format
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(formData),
             });
-
+    
             const data = await response.json();
-
+    
             if (!response.ok) {
                 throw new Error(data.detail || "Update failed");
             }
-
+    
             setSuccess("Profile updated successfully!");
             setFormData({ currentPassword: "", newPassword: "" });
-
+    
             setTimeout(() => {
                 navigate("/profile");
-            }, 1500); // Redirect after success
+            }, 1500);
         } catch (error) {
             console.error("Update error:", error);
             setError(error.message || "An error occurred during updating");
         }
     };
+    
 
     return (
         <div className="update-profile-container">

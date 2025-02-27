@@ -2,7 +2,7 @@ from pydantic import BaseModel
 import joblib
 import pandas as pd
 
-model_filename = 'C://Users//Neelesh//TreatmentModel//breast_cancer_rf_model.pkl'
+model_filename = '/Users/trishajanath/PredictModel/breast_cancer_rf_model.pkl'
 model = joblib.load(model_filename)
 # Define input data model using Pydantic
 class PatientInput(BaseModel):
