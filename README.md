@@ -2,11 +2,11 @@
 
 ## Project Description
 
-EzHealth is a specialized healthcare application designed to assist oncologists and radiologists in detecting and analyzing breast cancer through advanced medical imaging. The platform leverages state-of-the-art machine learning algorithms to provide precise image segmentation, cancer subtype classification, and staging analysis.
+EzHealth is a specialized healthcare application designed to assist oncologists and radiologists in detecting and analyzing breast cancer through advanced medical imaging. The platform leverages machine learning algorithms to provide precise image segmentation, cancer subtype classification, and staging analysis.
 
 ## Problem Addressed
 
-Breast cancer remains one of the most common cancers worldwide, with early detection being crucial for successful treatment outcomes. Traditional diagnostic processes can be time-consuming and subject to human interpretation variability. EzHealth addresses these challenges by providing clinicians with powerful AI-assisted tools for analyzing mammograms, ultrasounds, and other breast imaging modalities with greater speed, consistency, and accuracy.
+Breast cancer remains one of the most common cancers worldwide, with early detection being crucial for successful treatment outcomes. Traditional diagnostic processes can be time-consuming and subject to human interpretation variability. EzHealth addresses these challenges by providing clinicians with powerful AI-assisted tools for analyzing cells with greater speed, consistency, and accuracy.
 
 ## Solution
 
@@ -26,7 +26,7 @@ EzHealth aims to transform breast cancer diagnosis and treatment planning throug
 
 - **Enhanced Detection Precision**: The AI-powered image analysis can identify subtle patterns and anomalies that might be overlooked in standard screening, potentially increasing early detection rates by 15-25%.
 
-- **Critical Image Segmentation**: The platform's segmentation capabilities are invaluable for treatment planning, enabling clinicians to precisely map tumor boundaries, and distinguish between tissue types. This precision allows for optimized surgical procedures, targeted radiation therapy planning, and more effective treatment protocols.
+- **Critical Image Segmentation**: The platform's segmentation capabilities are invaluable for treatment planning, enabling clinicians to precisely map tumor boundaries, and distinguish between tissue types. This precision allows for optimized surgical procedures and effective treatment protocols.
 
 - **Accelerated Diagnostic Timeline**: By automating initial image analysis, EzHealth can reduce the time between screening and diagnosis, enabling faster clinical decision-making and treatment initiation when time is critical.
 
