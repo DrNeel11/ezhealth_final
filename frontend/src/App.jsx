@@ -12,6 +12,7 @@ import Reports from './components/Reports'; // Import Reports component
 import Settings from './components/Settings'; // Import Settings component
 import PrivateRoute from './components/PrivateRoute'; // Import PrivateRoute component
 import UpdateProfile from './components/updateprofile';
+import SignOut from './components/SignOut'; 
 
 function App() {
   return (
@@ -19,15 +20,16 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} /> {/* Default to Landing Page */}
         <Route path="/signin" element={<SignIn />} /> {/* SignIn page */}
-        <Route path="/home" element={<PrivateRoute element={Home} />} /> {/* Home page */}
+        <Route path="/home" element={<Home />} /> {/* Home page */}
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/update-profile" element={<UpdateProfile />} />
-        <Route path="/scan-details" element={<PrivateRoute element={ScanDetails} />} /> {/* Add this route */}
-        <Route path="/upload-specimen" element={<PrivateRoute element={UploadSpecimen} />} /> {/* Add this route */}
-        <Route path="/analysis" element={<PrivateRoute element={Analysis} />} /> {/* Add this route */}
-        <Route path="/reports" element={<PrivateRoute element={Reports} />} /> {/* Add this route */}
-        <Route path="/settings" element={<PrivateRoute element={Settings} />} /> {/* Add this route */}
+        <Route path="/scan-details" element={<ScanDetails />} /> {/* Add this route */}
+        <Route path="/upload-specimen" element={<UploadSpecimen />} /> {/* Add this route */}
+        <Route path="/analysis" element={<Analysis />} /> {/* Add this route */}
+        <Route path="/reports" element={<Reports />} /> {/* Add this route */}
+        <Route path="/settings" element={<Settings />} /> {/* Add this route */}
+        <Route path="/signout" element={<SignOut />} />
         <Route path="*" element={<Navigate to="/signin" />} /> {/* Redirect to SignIn page */}
       </Routes>
     </Router>

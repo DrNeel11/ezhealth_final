@@ -21,20 +21,15 @@ const UpdateProfile = () => {
         setError("");
         setSuccess("");
     
-        if (!formData.currentPassword.trim()) {
-            setError("Current password is required.");
+        const token = localStorage.getItem("token");
+        console.log("Token before request:", token);
+    
+        if (!token) {
+            navigate("/signin");
             return;
         }
     
         try {
-            const token = localStorage.getItem("token");
-            console.log("Token being sent:", token); // Debugging
-    
-            if (!token) {
-                navigate("/signin");
-                return;
-            }
-    
             const response = await fetch("http://127.0.0.1:8000/auth/update-profile", {
                 method: "PUT",
                 headers: {
@@ -43,6 +38,13 @@ const UpdateProfile = () => {
                 },
                 body: JSON.stringify(formData),
             });
+    
+            if (response.status === 401) {
+                console.warn("Invalid token detected, clearing local storage.");
+                localStorage.removeItem("token");  // Force logout
+                navigate("/signin");
+                return;
+            }
     
             const data = await response.json();
     

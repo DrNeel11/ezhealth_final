@@ -47,17 +47,22 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     """Verifies JWT token and retrieves user email."""
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Not authenticated",
+        detail="Invalid or expired token. Please log in again.",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
+        
         if email is None:
             raise credentials_exception
+        
         return email
+
     except JWTError:
-        raise credentials_exception
+        raise credentials_exception  # Triggers frontend to clear token
+
 
 # Routes
 @router.post("/signup")

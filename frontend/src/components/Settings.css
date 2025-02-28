@@ -1,111 +1,88 @@
+/* General Page Styling */
 .settings-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  min-height: 100vh;
+  justify-content: center;
+  height: 100vh;
+  background-color: #121212; /* Original dark background */
   padding: 20px;
-  font-family: 'Inter', sans-serif;
-  text-align: center;
-  background: #0a0a0a;
-  color: #ffffff;
-  padding-bottom: 80px; /* Space for the bottom nav bar */
-  animation: fadeIn 0.5s ease-in-out;
+  color: #ffffff; /* Ensures text is visible */
 }
 
-/* Settings Title */
+/* Title */
 .settings-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #00f2fe;
-  background: linear-gradient(45deg, #2b4141, #084983);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffffff; /* White text */
+}
+
+/* Description */
+.settings-description {
+  font-size: 14px;
+  color: #b0b0b0; /* Light gray text */
   margin-bottom: 20px;
 }
 
-/* Settings Description */
-.settings-description {
-  font-size: 18px;
-  color: #b0b0b0;
-  max-width: 600px;
-  text-align: center;
-  line-height: 1.6;
-  margin-bottom: 25px;
-}
-
-/* Settings Options Container */
+/* Settings Options */
 .settings-options {
-  text-align: left;
   width: 100%;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  max-width: 400px;
+  background: #1e1e1e; /* Dark gray background */
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1);
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-/* Clickable "Update Profile" */
-.settings-options h2 {
-  font-size: 22px;
-  font-weight: 600;
-  color: #ff7eb3;
-  margin: 10px 0;
-  cursor: pointer;
-  transition: color 0.3s ease-in-out;
-}
-
-.settings-options h2:hover {
-  color: #ff3e4d;
-  text-decoration: underline;
-}
-
-/* Settings Button */
-.settings-button {
-  margin-top: 20px;
-  padding: 12px 24px;
+.clickable-option {
   font-size: 16px;
-  font-weight: 600;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #ff7eb3, #ff5e62);
-  color: white;
+  font-weight: bold;
+  color: #00aaff; /* Keep original blue */
   cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  box-shadow: 0 4px 10px rgba(255, 94, 98, 0.3);
+  margin-bottom: 5px;
+  transition: color 0.3s ease;
 }
 
-.settings-button:hover {
-  background: linear-gradient(135deg, #ff5e62, #ff3e4d);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(255, 94, 98, 0.4);
+.clickable-option:hover {
+  color: #0088cc; /* Slightly darker blue on hover */
 }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-  .settings-title {
-      font-size: 28px;
-  }
+/* Sign Out Button Container */
+.signout-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
 
-  .settings-description {
-      font-size: 16px;
-  }
+/* Sign Out Button */
+.signout-button {
+  background-color: #ff4444; /* Bright red */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
 
-  .settings-options {
-      padding: 15px;
-  }
+.signout-button:hover {
+  background-color: #cc0000; /* Darker red on hover */
+  transform: scale(1.05);
+}
 
-  .settings-options h2 {
-      font-size: 20px;
-  }
-
-  .settings-button {
-      font-size: 14px;
-      padding: 10px 20px;
-  }
+/* Bottom Navigation Bar */
+.bottom-nav-bar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #1e1e1e; /* Dark gray, consistent with theme */
+  box-shadow: 0px -1px 5px rgba(255, 255, 255, 0.1);
+  padding: 10px 0;
+  text-align: center;
 }
