@@ -24,8 +24,7 @@ const ForgotPassword = () => {
     }
 
     // Handle password reset logic here
-    console.log('Password reset requested for:', email);
-    console.log('New Password:', newPassword);
+    // For example, make an API call to the backend
 
     // Clear form and error
     setEmail('');
@@ -38,38 +37,26 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="forgot-password-container">
-      <h2>Forgot Password</h2>
-      <p>Enter your email and a new password to reset your password</p>
-      {error && <p className="error-message">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+    
+      Forgot Password
+      Enter your email and a new password to reset your password
+      {error && {error}}
+      
+         setEmail(e.target.value)}
           required
         />
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
+         setNewPassword(e.target.value)}
           required
         />
-        <input
-          type="password"
-          placeholder="Confirm new password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
+         setConfirmPassword(e.target.value)}
           required
         />
-        <button type="submit">Reset Password</button>
-      </form>
-      <p>
-        Remember your password? <span onClick={() => navigate('/signin')}>Sign In</span>
-      </p>
-    </div>
+        Reset Password
+      
+      
+        Remember your password?  navigate('/signin')}>Sign In
+      
+    
   );
 };
 
