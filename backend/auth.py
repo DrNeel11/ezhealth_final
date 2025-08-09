@@ -1,3 +1,4 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
@@ -7,10 +8,18 @@ from datetime import datetime, timedelta
 from database import db  # Ensure this is correctly initialized
 from typing import Optional
 
-# Configuration
-SECRET_KEY = "e8b3f5d7a1c9f2b6e4d8a0c7b3f5d7a1c9f2b6e4d8a0c7b3f5d7a1c9f2b6e4d8"  # Strong secret key
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Token expiration time
+#  Secure Configuration Management 
+# Load sensitive configuration from environment variables to prevent exposure in source code.
+# This aligns with OWASP A05:2021 - Security Misconfiguration.
+# The application will fail to start if the essential SECRET_KEY is not provided.
+SECRET_KEY = os.getenv("SECRET_KEY")
+if not SECRET_KEY:
+    # In a real production environment, you would use a more robust logging framework.
+    print("FATAL_ERROR: SECRET_KEY environment variable is not set.")
+    raise ValueError("FATAL_ERROR: SECRET_KEY environment variable is not set.")
+
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -123,7 +132,7 @@ async def update_profile(
     update_fields["updated_at"] = datetime.utcnow()
     res = await db.users.update_one(
         {"email": current_user_email},
-        {"$set": update_fields}
+        {"\$set": update_fields}
     )
     
     if res.modified_count == 0:
