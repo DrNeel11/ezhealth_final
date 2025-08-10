@@ -7,47 +7,61 @@ const ScanDetails = () => {
   const { scan } = location.state || {}; // Get scan data passed via navigation
 
   if (!scan) {
-    return <div>No scan data found.</div>;
+    return No scan data found.;
   }
 
-  const handleDelete = () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this scan?");
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this scan? This action is irreversible."
+    );
     if (confirmDelete) {
-      // Fetch the existing scans from localStorage
-      const savedScans = JSON.parse(localStorage.getItem('scans')) || [];
+      try {
+        // SECURITY: Sensitive data operations should be handled by a secure backend.
+        // This simulates an API call to delete the scan data from a secure database.
+        // Storing and manipulating Protected Health Information (PHI) in localStorage is a major security risk.
+        const response = await fetch(`/api/scans/${scan.id}`, {
+          method: 'DELETE',
+          headers: {
+            // Include authorization headers as needed, e.g., 'Authorization': `Bearer ${authToken}`
+          },
+        });
 
-      // Remove the selected scan
-      const updatedScans = savedScans.filter((s) => s.id !== scan.id);
+        if (!response.ok) {
+          throw new Error(`API Error: ${response.status} ${response.statusText}`);
+        }
 
-      // Update localStorage
-      localStorage.setItem('scans', JSON.stringify(updatedScans));
+        alert('Scan successfully deleted.');
+        // On success, navigate back. The list component should re-fetch its data to reflect the deletion.
+        navigate('/medical-scans');
 
-      // Navigate back to the scans list
-      navigate('/medical-scans', { state: { deletedScanId: scan.id } });
+      } catch (error) {
+        console.error('Failed to delete scan:', error);
+        alert('There was an error deleting the scan. Please try again.');
+      }
     }
   };
 
   return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Scan Details</h1>
-      <div style={{ backgroundColor: '#f9f9f9', padding: '15px', border: '1px solid #ddd', borderRadius: '5px' }}>
-        <h2>{scan.name}</h2>
-        <p><strong>Type of Cancer:</strong> {scan.type}</p>
-        <p><strong>Patient Name:</strong> {scan.patientName}</p>
-        <p><strong>Severity:</strong> {scan.severity}</p>
-        <p><strong>Date:</strong> {scan.date}</p>
-        <p><strong>Doctor:</strong> {scan.doctor}</p>
-      </div>
+    
+      Scan Details
+      
+        {scan.name}
+        Type of Cancer: {scan.type}
+        Patient Name: {scan.patientName}
+        Severity: {scan.severity}
+        Date: {scan.date}
+        Doctor: {scan.doctor}
+      
 
-      <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
-        <button onClick={() => navigate(-1)} style={{ padding: '10px 20px', borderRadius: '5px', backgroundColor: '#007bff', color: 'white' }}>
+      
+         navigate(-1)} style={{ padding: '10px 20px', borderRadius: '5px', backgroundColor: '#007bff', color: 'white' }}>
           Go Back
-        </button>
-        <button onClick={handleDelete} style={{ padding: '10px 20px', borderRadius: '5px', backgroundColor: '#dc3545', color: 'white' }}>
+        
+        
           Delete Scan
-        </button>
-      </div>
-    </div>
+        
+      
+    
   );
 };
 
