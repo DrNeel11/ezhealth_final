@@ -22,7 +22,6 @@ const UpdateProfile = () => {
         setSuccess("");
     
         const token = localStorage.getItem("token");
-        console.log("Token before request:", token);
     
         if (!token) {
             navigate("/signin");
@@ -40,7 +39,6 @@ const UpdateProfile = () => {
             });
     
             if (response.status === 401) {
-                console.warn("Invalid token detected, clearing local storage.");
                 localStorage.removeItem("token");  // Force logout
                 navigate("/signin");
                 return;
@@ -59,41 +57,27 @@ const UpdateProfile = () => {
                 navigate("/profile");
             }, 1500);
         } catch (error) {
-            console.error("Update error:", error);
             setError(error.message || "An error occurred during updating");
         }
     };
     
 
     return (
-        <div className="update-profile-container">
-            <h2>Update Profile</h2>
-            {error && <p className="error-message">{error}</p>}
-            {success && <p className="success-message">{success}</p>}
-            <form className="update-profile-form" onSubmit={handleSubmit}>
-                <label htmlFor="currentPassword">Current Password:</label>
-                <input 
-                    type="password" 
-                    id="currentPassword" 
-                    name="currentPassword" 
-                    value={formData.currentPassword} 
-                    onChange={handleChange} 
-                    required 
-                />
+        
+            Update Profile
+            {error && {error}}
+            {success && {success}}
+            
+                Current Password:
+                
 
-                <label htmlFor="newPassword">New Password:</label>
-                <input 
-                    type="password" 
-                    id="newPassword" 
-                    name="newPassword" 
-                    value={formData.newPassword} 
-                    onChange={handleChange} 
-                />
+                New Password:
+                
 
-                <button type="submit">Update</button>
-            </form>
-            <BottomNavBar />
-        </div>
+                Update
+            
+            
+        
     );
 };
 
