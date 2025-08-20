@@ -1,16 +1,30 @@
+import os
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, BaseSettings
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 from datetime import datetime, timedelta
 from database import db  # Ensure this is correctly initialized
 from typing import Optional
 
-# Configuration
-SECRET_KEY = "e8b3f5d7a1c9f2b6e4d8a0c7b3f5d7a1c9f2b6e4d8a0c7b3f5d7a1c9f2b6e4d8"  # Strong secret key
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30  # Token expiration time
+#  Secure Configuration Management (OWASP A05:2021 - Security Misconfiguration) 
+# Hardcoding secrets is a critical vulnerability. Secrets should be loaded from
+# environment variables or a secure vault, not stored in source code.
+# We use Pydantic's BaseSettings for robust configuration management.
+class Settings(BaseSettings):
+    SECRET_KEY: str
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
+
+    class Config:
+        # For local development, create a .env file in the project root with:
+        # SECRET_KEY="generate_a_strong_random_32_byte_hex_string_here"
+        # Example: openssl rand -hex 32
+        env_file = ".env"
+        env_file_encoding = 'utf-8'
+
+settings = Settings()
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -52,7 +66,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
     )
     
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
         email: str = payload.get("sub")
         
         if email is None:
@@ -90,8 +104,8 @@ async def login(user: UserLogin):
     if not db_user or not verify_password(user.password, db_user["hashed_password"]):
         raise HTTPException(status_code=400, detail="Invalid credentials")
 
-    token_data = {"sub": user.email, "exp": datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)}
-    token = jwt.encode(token_data, SECRET_KEY, algorithm=ALGORITHM)
+    token_data = {"sub": user.email, "exp": datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)}
+    token = jwt.encode(token_data, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     
     return {"access_token": token, "token_type": "bearer"}
 
