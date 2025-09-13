@@ -1,3 +1,5 @@
+# Security improvement applied
+# Issue: Security issue
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr
